@@ -42,9 +42,9 @@ clean:
 
 git: clean
 	@git add .
-	@git pull github master
+	@git pull github levele
 	@git commit || true
-	@git push github || true
+	@git push github levele || true
 	@git push || true
 
 run: clean $(MAIN)

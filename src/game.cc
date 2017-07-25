@@ -55,9 +55,6 @@ int Game::Update(int input)
 	screenMessage((char *)" ");
 	switch (input)
 	{
-		case 1:
-			screenMessage((char *)"You enterd a ctrl key");
-			break;
 		case '4':
 		case 'h':
 			this->movePlayer(-1, 0);
@@ -90,12 +87,6 @@ int Game::Update(int input)
 		case 'n':
 			this->movePlayer(1, 1);
 			break;
-		case 'q':
-			screenMessage((char *)"You drink a potion!");
-			break;
-		case 'Q':
-			screenMessage((char *)"You quiver some arrows");
-			break;
 		case 'S':
 		case 's':
 			this->Save();
@@ -104,8 +95,26 @@ int Game::Update(int input)
 		case 'o':
 			this->Load();
 			break;
+		case 'W':
+		case 'w':
+			this->map[this->player->y][this->player->x].c = CHAR_WALL;
+			this->map[this->player->y][this->player->x].walk = false;
+			this->map[this->player->y][this->player->x].type = TYPE_WALL;
+			break;
+		case 'D':
+                case 'd':
+                        this->map[this->player->y][this->player->x].c = CHAR_DOOR;
+                        this->map[this->player->y][this->player->x].walk = false;
+                        this->map[this->player->y][this->player->x].type = TYPE_DOOR;
+                        break;
+		case '>':
+                        this->map[this->player->y][this->player->x].c = '>';
+                        this->map[this->player->y][this->player->x].walk = true;
+                        this->map[this->player->y][this->player->x].type = TYPE_FLOOR;
+                        break;
 		case 27:
 			return 0;
+			break;
 		default:
 			screenMessage((char *)"Key not implemented");
 			break;
@@ -123,17 +132,8 @@ void Game::movePlayer(int mx, int my)
 {
 	if (this->player->x + mx < 80 && this->player->y + my < 19 &&
                  this->player->x + mx > -1 && this->player->y+my > -1){
-		if (this->player->x + mx < 80 && this->player->y + my < 19 &&
-			 this->player->x + mx > -1 && this->player->y+my > -1 &&
-			this->map[this->player->y+my][this->player->x+mx].walk == true)
-		{
 			this->player->x+=mx;
 			this->player->y+=my;
-		}
-		else if (this->map[this->player->y+my][this->player->x+mx].type == TYPE_DOOR)
-		{
-			this->OpenClose(this->player->x+mx, this->player->y+my);
-		}
 	}
 }
 
@@ -158,14 +158,11 @@ Game::Game()
 		this->mWalk[y] = new bool[80];
 		this->map[y] = new Tile[80];
 		for (int x = 0; x < 80; x++){
-			this->map[y][x].c = '+';
-			this->map[y][x].walk = false;
-			this->map[y][x].type = TYPE_DOOR;
+			this->map[y][x].c = '.';
+			this->map[y][x].walk = true;
+			this->map[y][x].type = TYPE_FLOOR;
                 }
         }
-        this->map[10][10].c = '.';
-        this->map[10][10].walk = true;
-        this->map[10][10].type = TYPE_FLOOR;
 }
 
 int Game::Save(){
