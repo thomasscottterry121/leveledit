@@ -33,6 +33,7 @@ typedef struct Tile{
 	bool walk;
 	bool door;
 	int type;
+	bool seen;
 }Tile;
 
 /*! the class holding the map and player and responsible for managing them */
@@ -41,8 +42,6 @@ class Game{
 		Game();
 		Player *player;
 		int Update(int input);
-		char **Map;
-		bool **mWalk;
 		Tile **map;
 	private:
 		void movePlayer(int mx, int my);

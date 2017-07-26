@@ -78,6 +78,6 @@ void Screen::clearMessage(){ wclear(this->message);}
 void Screen::printStat(Player *p)
 {
 	wclear(this->stat);
-	mvwprintw(this->stat, 0, 1, "Strength: %d Intelligience: %d Magic: %d", p->Str, p->Int, p->Mp);
+	mvwprintw(this->stat, 0, 1, "Strength: %d Intelligience: %d Magic: %d x: %d y: %d", p->Str, p->Int, p->Mp, p->x, p->y);
 	wrefresh(this->stat);
 }

@@ -112,6 +112,17 @@ int Game::Update(int input)
                         this->map[this->player->y][this->player->x].walk = true;
                         this->map[this->player->y][this->player->x].type = TYPE_FLOOR;
                         break;
+		case '<':
+                        this->map[this->player->y][this->player->x].c = '<';
+                        this->map[this->player->y][this->player->x].walk = true;
+                        this->map[this->player->y][this->player->x].type = TYPE_FLOOR;
+			break;
+		case 'f':
+                        this->map[this->player->y][this->player->x].c = '.';
+                        this->map[this->player->y][this->player->x].walk = true;
+                        this->map[this->player->y][this->player->x].type = TYPE_FLOOR;
+                        break;
+
 		case 27:
 			return 0;
 			break;
@@ -150,15 +161,11 @@ Game::Game()
 	player->Str = 5;
 	player->Int = 4;
 	player->Mp = 9;
-	this->Map = new char*[20];
-	this->mWalk = new bool*[20];
 	this->map = new Tile*[20];
 	for (int y = 0; y < 19; y++){
-		this->Map[y] = new char[80];
-		this->mWalk[y] = new bool[80];
 		this->map[y] = new Tile[80];
 		for (int x = 0; x < 80; x++){
-			this->map[y][x].c = '.';
+			this->map[y][x].c = ' ';
 			this->map[y][x].walk = true;
 			this->map[y][x].type = TYPE_FLOOR;
                 }
